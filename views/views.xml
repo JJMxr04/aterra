@@ -1,0 +1,102 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="aterra.list">
+      <field name="name">Aterra List</field>
+      <field name="model">aterra.aterra</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="volume"/>
+          <field name="series"/>
+          <field name="rarity"/>
+          <field name="rank"/>
+          <field name="power"/>
+          <field name="defense"/>
+          <field name="elements"/>
+          <field name="abilities"/>
+          <field name="description"/>
+          <!-- <field name="image"/> -->
+        </tree>
+        <kanban>
+
+          <field name="name"/>
+          <field name="volume"/>
+          <field name="series"/>
+          <field name="rarity"/>
+          <field name="rank"/>
+          <field name="power"/>
+          <field name="defense"/>
+          <field name="elements"/>
+          <field name="abilities"/>
+          <field name="description"/>
+          <!-- <field name="image"/> -->
+
+          <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!-- <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('aterra.aterra','image',record.id.raw_value)" alt="Image"/>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-5">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates> 
+      </kanban>
+
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="aterra.action_window">
+      <field name="name">Aterra window</field>
+      <field name="res_model">aterra.aterra</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <!-- server action to the one above -->
+
+    <record model="ir.actions.server" id="aterra.action_server">
+      <field name="name">Aterra server</field>
+      <field name="model_id" ref="model_aterra_aterra"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form,kanban",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Aterra" id="aterra.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Menu 1" id="aterra.menu_1" parent="aterra.menu_root"/>
+    <menuitem name="Menu 2" id="aterra.menu_2" parent="aterra.menu_root"/>
+
+    <!-- actions -->
+
+    <menuitem name="List" id="aterra.menu_1_list" parent="aterra.menu_1"
+              action="aterra.action_window"/>
+    <menuitem name="Server to list" id="aterra" parent="aterra.menu_2"
+              action="aterra.action_server"/>
+
+  </data>
+</odoo>
