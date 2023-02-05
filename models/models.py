@@ -19,7 +19,7 @@ class aterra(models.Model):
     elements = fields.Text()
     abilities = fields.Text()
     description = fields.Text()
-    # image = fields.Binary('Image', related='aterra.image')
+    image = fields.Binary( string ="Image")
 
     # @api.depends('value')
     # def _value_pc(self):
