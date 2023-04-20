@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <template id="aterra_card_template" name="Aterra Trading Card">
+            <div class="aterra-card">
+                <div class="aterra-image">
+                    <img t-att-src="'/web/image/aterra.aterra/' + record.id + '/image'" alt="Aterra Image"/>
+                </div>
+                <div class="aterra-info">
+                    <div class="aterra-name">
+                        <span t-field="record.name"/>
+                    </div>
+                    <div class="aterra-volume">
+                        <span>Volume:</span>
+                        <span t-field="record.volume"/>
+                    </div>
+                    <div class="aterra-series">
+                        <span>Series:</span>
+                        <span t-field="record.series"/>
+                    </div>
+                    <div class="aterra-rarity">
+                        <span>Rarity:</span>
+                        <span t-field="record.rarity"/>
+                    </div>
+                    <div class="aterra-rank">
+                        <span>Rank:</span>
+                        <span t-field="record.rank"/>
+                    </div>
+                    <div class="aterra-power">
+                        <span>Power:</span>
+                        <span t-field="record.power"/>
+                    </div>
+                    <div class="aterra-defense">
+                        <span>Defense:</span>
+                        <span t-field="record.defense"/>
+                    </div>
+                    <div class="aterra-elements">
+                        <span>Elements:</span>
+                        <span t-field="record.elements"/>
+                    </div>
+                    <div class="aterra-abilities">
+                        <span>Abilities:</span>
+                        <span t-field="record.abilities"/>
+                    </div>
+                    <div class="aterra-description">
+                        <span>Description:</span>
+                        <span t-field="record.description"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>
+
