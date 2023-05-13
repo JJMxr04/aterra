@@ -1,6 +1,6 @@
 <odoo>
     <data>        
-        <template id="assets_backend" name="aterra assets" inherit_id="web.assets_backend">
+        <template id="assets_frontend" name="aterra assets" inherit_id="web.assets_frontend">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="/aterra/static/src/css/aterra_card.css"/>
             </xpath>

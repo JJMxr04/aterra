@@ -14,7 +14,7 @@
     'category': 'App',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web','website'],
 
     # always loaded
     'data': [
@@ -39,7 +39,7 @@
     'auto_install': False,
 
     'assets': {
-        'web.assets_backend': [
+        'web.assets_frontend': [
             "aterra/static/src/css/aterra_card.css",
         ]
     },
