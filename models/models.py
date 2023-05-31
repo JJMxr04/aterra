@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 
-
 class Aterra(models.Model):
     _name = 'aterra.aterra'
     _description = 'aterra.aterra'
@@ -86,6 +85,53 @@ class Aterra(models.Model):
                 record.image_Attachment_name = '{}-{}-{}'.format(record.series,record.card_number_id,record.name)
             else:
                 record.image_Attachment_name =  'Image Name'
+
+
+
+class AterraCardRarity(models.Model):
+    _name = 'aterra.cardrarity'
+    _description = 'aterra.cardrarity'
+    name = fields.Char()
+    # rarity = fields.Char()
+    image = fields.Binary(string="Image")
+    image_url = fields.Char(compute='_compute_image_url', store=True)  # Added store=True to store the computed URL
+
+    @api.model
+    def create(self, values):
+        # Create a new record
+        record = super(AterraCardRarity, self).create(values)
+
+        # Check if an image is provided
+        if 'image' in values:
+            # Attach the image as an attachment
+            attachment = self.env['ir.attachment'].create({
+                'name': record.name,
+                'type': 'binary',
+                'datas': values['image'],
+                'res_model': 'aterra.cardrarity',
+                'res_id': record.id,
+            })
+
+
+        return record
+    
+    @api.depends('image','name')
+    def _compute_image_url(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        for record in self:
+            if record.image:
+                # Generate the attachment URL based on the attachment ID and file name
+                attachment_id = self.env['ir.attachment'].search([
+                    ('res_model', '=', 'aterra.cardrarity'),
+                    ('res_id', '=', record.id),
+                    ('name', '=', record.name)
+                ], limit=1)
+                if attachment_id:
+                    record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment_id.id, attachment_id.name)
+                else:
+                    record.image_url = False
+            else:
+                record.image_url = False
             
     
 
