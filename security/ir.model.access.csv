@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_aterra_aterra,aterra.aterra,model_aterra_aterra,base.group_user,1,1,1,1
 access_aterra_cardrarity,aterra.cardrarity,model_aterra_cardrarity,base.group_user,1,1,1,1
+access_aterra_cardtype,aterra.cardtype,model_aterra_cardtype,base.group_user,1,1,1,1
