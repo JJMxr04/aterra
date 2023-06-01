@@ -14,7 +14,13 @@ class Aterra(models.Model):
     rank = fields.Integer(string = 'Rank')
     power = fields.Integer(string = 'Power')
     defense = fields.Integer(string = 'Defense')
-    elements = fields.Char()
+    elements = fields.Char(compute='_get_list_of_elememts', store=True, string = 'Elements')
+    element1 = fields.Many2one('aterra.cardelement', string='1st Card Element')
+    element2 = fields.Many2one('aterra.cardelement', string='2nd Card Element')
+    element3 = fields.Many2one('aterra.cardelement', string='3rd Card Element')
+    element4 = fields.Many2one('aterra.cardelement', string='4th Card Element')
+    element5 = fields.Many2one('aterra.cardelement', string='5th Card Element')
+    element6 = fields.Many2one('aterra.cardelement', string='6th Card Element')
     abilities = fields.Text(string = 'Abilities')
     description = fields.Text(string = 'Description')
     api_id = fields.Char(compute="def_api_id", store =True)
@@ -23,6 +29,12 @@ class Aterra(models.Model):
     image_url = fields.Char(compute='_compute_image_url', store=True, string = 'Card Photo')  # Added store=True to store the computed URL
     rarity_image_url = fields.Char(compute='_get_rarity_image_url', store=True, string = 'Rarity Image URL')
     type_image_url = fields.Char(compute='_get_type_image_url', store=True, string = 'Type Image URL')
+    element1_image_url = fields.Char(compute='_get_element1_image_url', store=True, string = '1st Element Image URL')
+    element2_image_url = fields.Char(compute='_get_element2_image_url', store=True, string = '2nd Element Image URL')
+    element3_image_url = fields.Char(compute='_get_element3_image_url', store=True, string = '3rd Element Image URL')
+    element4_image_url = fields.Char(compute='_get_element4_image_url', store=True, string = '4th Element Image URL')
+    element5_image_url = fields.Char(compute='_get_element5_image_url', store=True, string = '5th Element Image URL')
+    element6_image_url = fields.Char(compute='_get_element6_image_url', store=True, string = '6th Element Image URL')
     
     
     @api.model
@@ -104,6 +116,76 @@ class Aterra(models.Model):
                 record.type_image_url = record.type.image_url
             else:
                 record.type_image_url = False
+
+    @api.depends('element1')
+    def _get_element1_image_url(self):
+        for record in self:
+            if record.element1:
+                record.element1_image_url = record.element1.image_url
+            else:
+                record.element1_image_url = False
+
+    @api.depends('element2')
+    def _get_element2_image_url(self):
+        for record in self:
+            if record.element2:
+                record.element2_image_url = record.element2.image_url
+            else:
+                record.element2_image_url = False
+
+    @api.depends('element3')
+    def _get_element3_image_url(self):
+        for record in self:
+            if record.element3:
+                record.element3_image_url = record.element3.image_url
+            else:
+                record.element3_image_url = False
+
+    @api.depends('element4')
+    def _get_element4_image_url(self):
+        for record in self:
+            if record.element4:
+                record.element4_image_url = record.element4.image_url
+            else:
+                record.element4_image_url = False
+
+    @api.depends('element5')
+    def _get_element5_image_url(self):
+        for record in self:
+            if record.element5:
+                record.element5_image_url = record.element5.image_url
+            else:
+                record.element5_image_url = False
+    
+    @api.depends('element6')
+    def _get_element6_image_url(self):
+        for record in self:
+            if record.element6:
+                record.element6_image_url = record.element6.image_url
+            else:
+                record.element6_image_url = False
+
+    # this field is not used in the API, its simply there for backend display. To show the elements 
+    # on the card without having to have all 6 elemental fields showing in the list view.
+    @api.depends('element1','element2','element3','element4','element5','element6')
+    def _get_list_of_elememts(self):
+        element_list_string = ""
+        for record in self:
+            if record.element1:
+                element_list_string += " " + record.element1.name
+            if record.element2:
+                element_list_string += " " + record.element2.name
+            if record.element3:
+                element_list_string += " " + record.element3.name
+            if record.element4:
+                element_list_string += " " + record.element4.name
+            if record.element5:
+                element_list_string += " " + record.element5.name
+            if record.element6:
+                element_list_string += " " + record.element6.name
+        record.elements = element_list_string
+                    
+
 
 
 #________________________________________________________________________-
@@ -189,6 +271,54 @@ class AterraCardType(models.Model):
                 # Generate the attachment URL based on the attachment ID and file name
                 attachment_id = self.env['ir.attachment'].search([
                     ('res_model', '=', 'aterra.cardtype'),
+                    ('res_id', '=', record.id),
+                    ('name', '=', record.name)
+                ], limit=1)
+                if attachment_id:
+                    record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment_id.id, attachment_id.name)
+                else:
+                    record.image_url = False
+            else:
+                record.image_url = False
+
+
+
+#________________________________________________________________________-
+class AterraCardElement(models.Model):
+    _name = 'aterra.cardelement'
+    _description = 'aterra.cardelement'
+    name = fields.Char()
+    # rarity = fields.Char()
+    image = fields.Binary(string="Image")
+    image_url = fields.Char(compute='_compute_image_url', store=True)  # Added store=True to store the computed URL
+
+    @api.model
+    def create(self, values):
+        # Create a new record
+        record = super(AterraCardElement, self).create(values)
+
+        # Check if an image is provided
+        if 'image' in values:
+            # Attach the image as an attachment
+            attachment = self.env['ir.attachment'].create({
+                'name': record.name,
+                'type': 'binary',
+                'datas': values['image'],
+                'res_model': 'aterra.cardelement',
+                'res_id': record.id,
+            })
+
+
+        return record
+    
+    @api.depends('image','name')
+    def _compute_image_url(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        for record in self:
+            if record.image:
+                # Generate the attachment URL based on the attachment ID and file name
+                attachment_id = self.env['ir.attachment'].search([
+                    ('res_model', '=', 'aterra.cardelement'),
                     ('res_id', '=', record.id),
                     ('name', '=', record.name)
                 ], limit=1)
