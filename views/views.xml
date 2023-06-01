@@ -232,6 +232,59 @@
 <!--kanban View-->
 
 <!--Aterra Element-->
+
+<!--Aterra Contract-->
+  <!--Tree / List View-->
+    <record model="ir.ui.view" id="aterra.contractlist">
+      <field name="name">Aterra Card Contract</field>
+      <field name="model">aterra.cardcontract</field>
+      <field name="arch" type="xml">
+        <tree>
+          
+          <field name="image"  widget="image"/>
+          <field name="name"/>
+
+          
+        </tree>
+      </field>
+    </record>
+
+  <!--Tree / List View-->
+  <!--kanban View-->
+
+         <record id="aterra_contract_kanban_view" model="ir.ui.view">
+            <field name="name">aterra.contractkanban</field>
+            <field name="model">aterra.cardcontract</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                  <field name="id"/>
+                  <field name="name"/>
+                  
+                  <field name="image"/>
+                  
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                  <img t-att-src="kanban_image('aterra.aterra', 'image', record.id.raw_value)" />
+                                </div> 
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record> 
+
+
+
+<!--kanban View-->
+
+<!--Aterra Contract-->
     
 
 
@@ -258,6 +311,12 @@
     <record model="ir.actions.act_window" id="aterra.action_window_element">
       <field name="name">Aterra Card Element</field>
       <field name="res_model">aterra.cardelement</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="aterra.action_window_contract">
+      <field name="name">Aterra Card Contract</field>
+      <field name="res_model">aterra.cardcontract</field>
       <field name="view_mode">tree,form,kanban</field>
     </record>
 
@@ -312,14 +371,16 @@
     <menuitem name="Card Features" id="aterra.menu_2" parent="aterra.menu_root"/>
 
     <!-- actions -->
-    <menuitem name="Card List" id="aterra.menu_1_list" parent="aterra.menu_1"
-              action="aterra.action_window"/>
-    <menuitem name="Rarity Icons" id="aterra.RarityIcons" parent="aterra.menu_2"
+    <!-- <menuitem name="Card List" id="aterra.menu_1_list" parent="aterra.menu_1"
+              action="aterra.action_window"/> -->
+    <menuitem name="Rarities" id="aterra.RarityIcons" parent="aterra.menu_2"
               action="aterra.action_window_rarity"/>
     <menuitem name="Card Types" id="aterra.CardTypes" parent="aterra.menu_2"
               action="aterra.action_window_type"/>
-    <menuitem name="Card Elements" id="aterra.CardElements" parent="aterra.menu_2"
+    <menuitem name="Elements" id="aterra.CardElements" parent="aterra.menu_2"
               action="aterra.action_window_element"/>
+    <menuitem name="Contracts" id="aterra.CardContracts" parent="aterra.menu_2"
+              action="aterra.action_window_contract"/>
 
 
   </data>
