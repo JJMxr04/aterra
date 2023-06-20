@@ -43,5 +43,6 @@
             "aterra/static/src/css/aterra_card.css",
         ]
     },
-    'icon': "aterra/static/description/Aterra_dragon_icon.png"
+    'icon': "aterra/static/description/Aterra_dragon_icon.png",
+
 }
