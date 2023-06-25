@@ -180,6 +180,12 @@
 
 
 
+
+
+
+
+
+
 <!--Aterra Element-->
   <!--Tree / List View-->
     <record model="ir.ui.view" id="aterra.elementlist">
@@ -285,6 +291,62 @@
 <!--kanban View-->
 
 <!--Aterra Contract-->
+
+
+
+
+
+<!--Aterra Player Cards-->
+  <!--Tree / List View-->
+    <record model="ir.ui.view" id="aterra.playercardslist">
+      <field name="name">Aterra Player Cards</field>
+      <field name="model">aterra.playercards</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="apikey"/>
+          <field name="ownerid"/>
+          <field name="name"/>
+
+          
+        </tree>
+      </field>
+    </record>
+
+  <!--Tree / List View-->
+  <!--kanban View-->
+
+         <!-- <record id="aterra_player_cards_kanban_view" model="ir.ui.view">
+            <field name="name">aterra.playercardskanban</field>
+            <field name="model">aterra.playercards</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                  <field name="name"/>
+                  <field name="ownerid"/>
+                  <field name="apikey"/>
+                  
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                  <img t-att-src="kanban_image('aterra.aterra', 'image', record.id.raw_value)" />
+                                </div> 
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>  -->
+
+
+
+<!--kanban View-->
+
+<!--Aterra Player Cards-->
     
 
 
@@ -320,6 +382,12 @@
       <field name="view_mode">tree,form,kanban</field>
     </record>
 
+    <record model="ir.actions.act_window" id="aterra.action_window_playercards">
+      <field name="name">Aterra Player Cards</field>
+      <field name="res_model">aterra.playercards</field>
+      <field name="view_mode">tree</field>
+    </record>
+
 
     <!-- server action to the one above -->
 
@@ -336,7 +404,7 @@
       </field>
     </record>
 
-        <record model="ir.actions.server" id="aterra.action_server_rarity">
+    <!-- <record model="ir.actions.server" id="aterra.action_server_rarity">
       <field name="name">Aterra Rarity Icons Server</field>
       <field name="model_id" ref="model_aterra_aterra"/>
       <field name="state">code</field>
@@ -362,6 +430,19 @@
       </field>
     </record>
 
+    <record model="ir.actions.server" id="aterra.action_server_type">
+      <field name="name">Aterra Card Type Server</field>
+      <field name="model_id" ref="model_aterra_playercards"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form,kanban",
+          "res_model": model._name,
+        }
+      </field>
+    </record> -->
+
 
  <!-- Top menu item -->
     <menuitem name="Aterra" id="aterra.menu_root"/>
@@ -369,6 +450,7 @@
     <!-- menu categories -->
     <menuitem name="Card Making" id="aterra.menu_1" parent="aterra.menu_root" action="aterra.action_window"/>
     <menuitem name="Card Features" id="aterra.menu_2" parent="aterra.menu_root"/>
+    <menuitem name="Player Cards" id="aterra.menu_3" parent="aterra.menu_root"/>
 
     <!-- actions -->
     <!-- <menuitem name="Card List" id="aterra.menu_1_list" parent="aterra.menu_1"
@@ -381,6 +463,8 @@
               action="aterra.action_window_element"/>
     <menuitem name="Contracts" id="aterra.CardContracts" parent="aterra.menu_2"
               action="aterra.action_window_contract"/>
+    <menuitem name="Player Cards" id="aterra.PlayerCards" parent="aterra.menu_3"
+              action="aterra.action_window_playercards"/>
 
 
   </data>
