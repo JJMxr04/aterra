@@ -28,7 +28,9 @@ class Aterra(models.Model):
     api_id = fields.Char(compute="def_api_id", store =True)
     image_Attachment_name = fields.Char(compute="def_att_name", store =True) 
     elements = fields.Char(compute='_get_list_of_elememts', store=True, string = 'Elements')
-    image_url = fields.Char(compute='_compute_image_url', store=True, string = 'Card Photo')  # Added store=True to store the computed URL
+    image_url = fields.Char(string='Image URL', compute='_compute_image_url', store=True, compute_sudo=True, readonly=True)
+    # image_url = fields.Char(string='Image URL', compute='_compute_image_url', store=True, compute_sudo=True, readonly=True, inverse='_inverse_image_url', search='_search_image_url', compute='_check_access')
+    # image_url = fields.Char(compute='_compute_image_url', store=True, string = 'Card Photo')  # Added store=True to store the computed URL
     # rarity_image_url = fields.Char(compute='_get_rarity_image_url', store=True, string = 'Rarity Image URL')
     # type_image_url = fields.Char(compute='_get_type_image_url', store=True, string = 'Type Image URL')
     # contract_image_url = fields.Char(compute='_get_contract_image_url', store=True, string = 'Contract Image URL')
@@ -54,9 +56,11 @@ class Aterra(models.Model):
                 'datas': values['image'],
                 'res_model': 'aterra.aterra',
                 'res_id': record.id,
+                'public': True,  # Set the attachment as public
             })
             # Update the image URL
-            #record.image_url = attachment._get_download_url()
+            base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+            record.image_url = '{}/web/content/{}'.format(base_url, attachment.id)
 
         return record
 
@@ -78,25 +82,25 @@ class Aterra(models.Model):
     #             elementlist.append(self.element6.name)
     #     self.elements = elementslist.join(str(i) for i in elementlist)
 
-    @api.depends('image','image_Attachment_name')
+    @api.depends('image', 'image_Attachment_name')
     def _compute_image_url(self):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         for record in self:
             if record.image:
-                # Generate the attachment URL based on the attachment ID and file name
+                # Generate the attachment URL based on the attachment ID
                 attachment_id = self.env['ir.attachment'].search([
                     ('res_model', '=', 'aterra.aterra'),
                     ('res_id', '=', record.id),
                     ('name', '=', record.image_Attachment_name)
-                    #('name', '=', record.name)
                 ], limit=1)
                 if attachment_id:
-                    # record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment_id.card_series, attachment_id.name)
-                    record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment_id.id, attachment_id.name)
+                    # Use the web.base.url to construct the attachment URL
+                    record.image_url = '{}/web/content/{}'.format(base_url, attachment_id.id)
                 else:
                     record.image_url = False
             else:
                 record.image_url = False
+    
 
     @api.depends('name','volume','card_number_id')
     def def_api_id(self):
