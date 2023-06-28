@@ -60,7 +60,7 @@ class Aterra(models.Model):
             })
             # Update the image URL
             base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
-            record.image_url = '{}/web/content/{}'.format(base_url, attachment.id)
+            record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment.id, attachment.name)
 
         return record
 
@@ -95,7 +95,7 @@ class Aterra(models.Model):
                 ], limit=1)
                 if attachment_id:
                     # Use the web.base.url to construct the attachment URL
-                    record.image_url = '{}/web/content/{}'.format(base_url, attachment_id.id)
+                    record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment_id.id, attachment_id.name)
                 else:
                     record.image_url = False
             else:
