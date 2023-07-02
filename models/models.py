@@ -126,7 +126,7 @@ class Aterra(models.Model):
             else:
                 record.image_Attachment_name =  'Image Name'
 
-    # @api.depends('rarity')
+    # @api.depends('rarity') 
     # def _get_rarity_image_url(self):
     #     for record in self:
     #         if record.rarity:
@@ -140,9 +140,23 @@ class Aterra(models.Model):
     #         if record.type:
     #             record.type_image_url = record.type.image_url
     #         else:
-    #             record.type_image_url = False
-
-    # @api.depends('element1')
+    #             record.type_image_url = False    @api.depends('element1','element2','element3','element4','element5','element6')
+    def _get_list_of_elememts(self):
+        element_list_string = ""
+        for record in self:
+            if record.element1:
+                element_list_string += " " + record.element1.name
+            if record.element2:
+                element_list_string += " " + record.element2.name
+            if record.element3:
+                element_list_string += " " + record.element3.name
+            if record.element4:
+                element_list_string += " " + record.element4.name
+            if record.element5:
+                element_list_string += " " + record.element5.name
+            if record.element6:
+                element_list_string += " " + record.element6.name
+        record.elements = element_list_string
     # def _get_element1_image_url(self):
     #     for record in self:
     #         if record.element1:
@@ -192,23 +206,23 @@ class Aterra(models.Model):
 
     # # this field is not used in the API, its simply there for backend display. To show the elements 
     # # on the card without having to have all 6 elemental fields showing in the list view.
-    # @api.depends('element1','element2','element3','element4','element5','element6')
-    # def _get_list_of_elememts(self):
-    #     element_list_string = ""
-    #     for record in self:
-    #         if record.element1:
-    #             element_list_string += " " + record.element1.name
-    #         if record.element2:
-    #             element_list_string += " " + record.element2.name
-    #         if record.element3:
-    #             element_list_string += " " + record.element3.name
-    #         if record.element4:
-    #             element_list_string += " " + record.element4.name
-    #         if record.element5:
-    #             element_list_string += " " + record.element5.name
-    #         if record.element6:
-    #             element_list_string += " " + record.element6.name
-    #     record.elements = element_list_string
+    @api.depends('element1','element2','element3','element4','element5','element6')
+    def _get_list_of_elememts(self):
+        element_list_string = ""
+        for record in self:
+            if record.element1:
+                element_list_string += " " + record.element1.name
+            if record.element2:
+                element_list_string += " " + record.element2.name
+            if record.element3:
+                element_list_string += " " + record.element3.name
+            if record.element4:
+                element_list_string += " " + record.element4.name
+            if record.element5:
+                element_list_string += " " + record.element5.name
+            if record.element6:
+                element_list_string += " " + record.element6.name
+        record.elements = element_list_string
 
     # @api.depends('contract')
     # def _get_contract_image_url(self):
