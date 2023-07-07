@@ -258,6 +258,7 @@ class AterraCardRarity(models.Model):
                 'datas': values['image'],
                 'res_model': 'aterra.cardrarity',
                 'res_id': record.id,
+                'public': True,  # Set the attachment as public
             })
 
 
@@ -305,6 +306,7 @@ class AterraCardType(models.Model):
                 'datas': values['image'],
                 'res_model': 'aterra.cardtype',
                 'res_id': record.id,
+                'public': True,  # Set the attachment as public
             })
 
 
@@ -361,6 +363,7 @@ class AterraCardElement(models.Model):
                 'datas': values['image'],
                 'res_model': 'aterra.cardelement',
                 'res_id': record.id,
+                'public': True,  # Set the attachment as public
             })
 
 
@@ -408,6 +411,7 @@ class AterraCardContract(models.Model):
                 'datas': values['image'],
                 'res_model': 'aterra.cardcontract',
                 'res_id': record.id,
+                'public': True,  # Set the attachment as public
             })
 
 
