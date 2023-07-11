@@ -72,10 +72,9 @@
       <field name="arch" type="xml">
         <tree>
           <!-- <field name="image"  widget="image" class="oe_right oe_avatar"/> -->
-          <field name="image"  widget="image"/>
+
           <field name="name"/>
-          <!-- <field name="rarity"/> -->
-          <!-- <field name="image"/> -->
+
           
         </tree>
       </field>
@@ -84,35 +83,7 @@
   <!--Tree / List View-->
   <!--kanban View-->
 
-         <record id="aterra_rarity_kanban_view" model="ir.ui.view">
-            <field name="name">aterra.raritykanban</field>
-            <field name="model">aterra.cardrarity</field>
-            <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban">
-                  <field name="id"/>
-                  <field name="name"/>
 
-                  <!-- <field name="rarity"/> -->
-                  
-                  <field name="image"/>
-                  
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_global_click">
-                                <div class="o_kanban_image">
-                                  <img t-att-src="kanban_image('aterra.aterra', 'image', record.id.raw_value)" />
-                                </div> 
-                                <div class="oe_kanban_details">
-                                    <strong class="o_kanban_record_title">
-                                    <field name="name"/>
-                                    </strong>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record> 
 
 
 
@@ -133,7 +104,7 @@
       <field name="arch" type="xml">
         <tree>
           
-          <field name="image"  widget="image"/>
+          
           <field name="name"/>
 
           
@@ -144,34 +115,7 @@
   <!--Tree / List View-->
   <!--kanban View-->
 
-         <record id="aterra_type_kanban_view" model="ir.ui.view">
-            <field name="name">aterra.typekanban</field>
-            <field name="model">aterra.cardtype</field>
-            <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban">
-                  <field name="id"/>
-                  <field name="name"/>
-                  
-                  <field name="image"/>
-                  
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_global_click">
-                                <div class="o_kanban_image">
-                                  <img t-att-src="kanban_image('aterra.aterra', 'image', record.id.raw_value)" />
-                                </div> 
-                                <div class="oe_kanban_details">
-                                    <strong class="o_kanban_record_title">
-                                    <field name="name"/>
-                                    </strong>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record> 
-
+         
 
 
 <!--kanban View-->
@@ -194,7 +138,7 @@
       <field name="arch" type="xml">
         <tree>
           
-          <field name="image"  widget="image"/>
+          
           <field name="name"/>
 
           
@@ -205,34 +149,7 @@
   <!--Tree / List View-->
   <!--kanban View-->
 
-         <record id="aterra_element_kanban_view" model="ir.ui.view">
-            <field name="name">aterra.elementkanban</field>
-            <field name="model">aterra.cardelement</field>
-            <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban">
-                  <field name="id"/>
-                  <field name="name"/>
-                  
-                  <field name="image"/>
-                  
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_global_click">
-                                <div class="o_kanban_image">
-                                  <img t-att-src="kanban_image('aterra.aterra', 'image', record.id.raw_value)" />
-                                </div> 
-                                <div class="oe_kanban_details">
-                                    <strong class="o_kanban_record_title">
-                                    <field name="name"/>
-                                    </strong>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record> 
-
+         
 
 
 <!--kanban View-->
@@ -247,7 +164,6 @@
       <field name="arch" type="xml">
         <tree>
           
-          <field name="image"  widget="image"/>
           <field name="name"/>
 
           
@@ -258,33 +174,7 @@
   <!--Tree / List View-->
   <!--kanban View-->
 
-         <record id="aterra_contract_kanban_view" model="ir.ui.view">
-            <field name="name">aterra.contractkanban</field>
-            <field name="model">aterra.cardcontract</field>
-            <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban">
-                  <field name="id"/>
-                  <field name="name"/>
-                  
-                  <field name="image"/>
-                  
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_global_click">
-                                <div class="o_kanban_image">
-                                  <img t-att-src="kanban_image('aterra.aterra', 'image', record.id.raw_value)" />
-                                </div> 
-                                <div class="oe_kanban_details">
-                                    <strong class="o_kanban_record_title">
-                                    <field name="name"/>
-                                    </strong>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record> 
+        
 
 
 
@@ -361,25 +251,25 @@
     <record model="ir.actions.act_window" id="aterra.action_window_rarity">
       <field name="name">Aterra Rarity Icons</field>
       <field name="res_model">aterra.cardrarity</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="aterra.action_window_type">
       <field name="name">Aterra Card Types</field>
       <field name="res_model">aterra.cardtype</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="aterra.action_window_element">
       <field name="name">Aterra Card Element</field>
       <field name="res_model">aterra.cardelement</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="aterra.action_window_contract">
       <field name="name">Aterra Card Contract</field>
       <field name="res_model">aterra.cardcontract</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="aterra.action_window_playercards">
