@@ -6,3 +6,4 @@ access_aterra_cardelement,aterra.cardelement,model_aterra_cardelement,base.group
 access_aterra_cardcontract,aterra.cardcontract,model_aterra_cardcontract,base.group_user,1,1,1,1
 access_aterra_playercards,aterra.playercards,model_aterra_playercards,base.group_user,1,1,1,1
 access_aterra_cardseries,aterra.cardseries,model_aterra_cardseries,base.group_user,1,1,1,1
+

@@ -22,6 +22,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/aterra_card.xml',
+        'views/res_partner_view.xml',
     ],
     'qweb': [
         'static/src/xml/aterra_card.xml',

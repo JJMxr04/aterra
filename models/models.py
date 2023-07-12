@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+
+# class ResPartner(models.Model):
+   
+#     _inherit = 'res.partner'
+#     # coins = fields.Integer(string = 'Coins')
+
+
+    # coins = volume = fields.Integer(string = 'Coins')
+
 
 class Aterra(models.Model):
     _name = 'aterra.aterra'
@@ -221,10 +230,11 @@ class AterraCardContract(models.Model):
     name = fields.Char()
 
 
-
+#_____________________________________________________________________________
 class AterraPlayerCards(models.Model):
     _name = 'aterra.playercards'
     _description = 'aterra.playercards'
     name = fields.Char(string='Owner Name')
     ownerid = fields.Integer(string='Owner ID')
     apikey= fields.Char(string='API Key')
+
