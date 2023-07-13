@@ -182,32 +182,6 @@
 
 <!--Aterra Contract-->
 
-<!--Aterra Contract-->
-  <!--Tree / List View-->
-    <record model="ir.ui.view" id="aterra.serieslist">
-      <field name="name">Aterra Card Series</field>
-      <field name="model">aterra.cardseries</field>
-      <field name="arch" type="xml">
-        <tree>
-          
-          <field name="name"/>
-
-          
-        </tree>
-      </field>
-    </record>
-
-  <!--Tree / List View-->
-  <!--kanban View-->
-
-        
-
-
-
-<!--kanban View-->
-
-<!--Aterra Contract-->
-
 
 
 
@@ -298,12 +272,6 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="aterra.action_window_series">
-      <field name="name">Aterra Card Series</field>
-      <field name="res_model">aterra.cardseries</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
     <record model="ir.actions.act_window" id="aterra.action_window_playercards">
       <field name="name">Aterra Player Cards</field>
       <field name="res_model">aterra.playercards</field>
@@ -385,8 +353,6 @@
               action="aterra.action_window_element"/>
     <menuitem name="Contracts" id="aterra.CardContracts" parent="aterra.menu_2"
               action="aterra.action_window_contract"/>
-    <menuitem name="Series" id="aterra.CardSeries" parent="aterra.menu_2"
-              action="aterra.action_window_series"/>
     <menuitem name="Player Cards" id="aterra.PlayerCards" parent="aterra.menu_3"
               action="aterra.action_window_playercards"/>
 
