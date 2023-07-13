@@ -14,7 +14,7 @@
     'category': 'App',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web','website'],
+    'depends': ['base', 'web','website','product','sale','website_sale'],
 
     # always loaded
     'data': [
@@ -22,7 +22,9 @@
         'views/views.xml',
         'views/templates.xml',
         'views/aterra_card.xml',
-        'views/res_partner_view.xml',
+        'views/partner_view.xml',
+        'views/product_template_view.xml',
+        'views/sale_order_view.xml',
     ],
     'qweb': [
         'static/src/xml/aterra_card.xml',

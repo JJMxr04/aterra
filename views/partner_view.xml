@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="res_partner_form_view_inherited">
-            <field name="name">res.partner.form.inherit</field>
+        <record model="ir.ui.view" id="res_partner_form_inherited">
+            <field name="name">res.partner.form.inherited</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <field name="name" position="after">
+                <xpath expr="//field[@name='function']" position="before">
                     <field name="coins"/>
-                </field>
+                </xpath>
             </field>
         </record>
     </data>

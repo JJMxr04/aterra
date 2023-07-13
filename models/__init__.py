@@ -2,3 +2,6 @@
 
 from . import models
 from . import res_partner
+from . import coinproduct
+from . import coinsorder
+
