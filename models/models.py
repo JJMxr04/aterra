@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _ 
-
-# class ResPartner(models.Model):
-   
-#     _inherit = 'res.partner'
-#     # coins = fields.Integer(string = 'Coins')
-
-
-    # coins = volume = fields.Integer(string = 'Coins')
+from odoo import models, fields, api, _
 
 
 class Aterra(models.Model):
@@ -16,7 +8,7 @@ class Aterra(models.Model):
     _description = 'aterra.aterra'
     name = fields.Char(string = 'Name')
     volume = fields.Integer(string = 'Volume')
-    series = fields.Many2one('aterra.cardseries', string = 'Series')
+    series = fields.Char(string = 'Series')
     type = fields.Many2one('aterra.cardtype', string='Card Type')
     rarity = fields.Many2one('aterra.cardrarity', string='Card Rarity')
     rank = fields.Integer(string = 'Rank')
@@ -35,32 +27,52 @@ class Aterra(models.Model):
     is_published = fields.Boolean(string="Published",default=False)
     is_found = fields.Boolean(string="Found",default=False)
 
-    api_id = fields.Char(compute="def_api_id", store =True)
-    image_Attachment_name = fields.Char(compute="def_att_name", store =True) 
-    elements = fields.Char(compute='_get_list_of_elememts', store=True, string = 'Elements')
-    image_url = fields.Char(string='Image URL', compute='_compute_image_url', store=True, compute_sudo=True, readonly=True)
-
-    card_number_id = fields.Integer(string = 'Card Number ID')
-
 
     @api.model
     def getAllCards(self):
-        all_records = self.env['aterra.aterra'].sudo().search([])
+        all_records = self.search([])
         return all_records
 
 
     @api.model
     def getCardNumber(self):
-        for record in self:
-            cards = self.getAllCards()
-            num = 0
-            if cards:
-                for card in cards:
+        cards = self.getAllCards()
+        num = 0
+        for card in card:
+            if card['card_number_id'] > num:
+                num = card['card_number_id']
 
-                    if card.card_number_id > num:
-                        num = card.card_number_id
+        if num == 0:
+            return 1
+        else:
+            return num +1
 
-            record.card_number_id = num + 1
+    api_id = fields.Char(compute="def_api_id", store =True)
+    image_Attachment_name = fields.Char(compute="def_att_name", store =True) 
+    elements = fields.Char(compute='_get_list_of_elememts', store=True, string = 'Elements')
+    image_url = fields.Char(string='Image URL', compute='_compute_image_url', store=True, compute_sudo=True, readonly=True)
+
+    card_number_id = fields.Integer(string = 'Card Number ID',compute="getCardNumber", default = 0)
+
+
+    @api.model
+    def getAllCards(self):
+        all_records = self.search([])
+        return all_records
+
+
+    @api.model
+    def getCardNumber(self):
+        cards = self.getAllCards()
+        num = 0
+        for card in cards:
+            if card['card_number_id'] > num:
+                num = card['card_number_id']
+
+        if num == 0:
+            self.card_number_id = 1
+        else:
+            self.card_number_id = num +1
 
 
     
@@ -83,7 +95,7 @@ class Aterra(models.Model):
             # Update the image URL
             base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
             record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment.id, attachment.name)
-        record.getCardNumber()
+
         return record
 
     #     
@@ -126,7 +138,7 @@ class Aterra(models.Model):
     def def_att_name(self):
         for record in self:
             if (record.name):
-                record.image_Attachment_name = '{}-{}-{}'.format(record.series.name,record.card_number_id,record.name)
+                record.image_Attachment_name = '{}-{}-{}'.format(record.series,record.card_number_id,record.name)
             else:
                 record.image_Attachment_name =  'Image Name'
 
@@ -170,7 +182,10 @@ class Aterra(models.Model):
         record.elements = element_list_string
 
 
-                    
+class AterraCardSeries(models.Model):
+    _name = 'aterra.cardseries'
+    _description = 'aterra.cardseries'
+    name = fields.Char()                    
 
 
 
