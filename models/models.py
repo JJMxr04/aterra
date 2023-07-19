@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _ 
 
 # class ResPartner(models.Model):
    
@@ -16,7 +16,7 @@ class Aterra(models.Model):
     _description = 'aterra.aterra'
     name = fields.Char(string = 'Name')
     volume = fields.Integer(string = 'Volume')
-    series = fields.Char(string = 'Series')
+    series = fields.Many2one('aterra.cardseries', string = 'Series')
     type = fields.Many2one('aterra.cardtype', string='Card Type')
     rarity = fields.Many2one('aterra.cardrarity', string='Card Rarity')
     rank = fields.Integer(string = 'Rank')
@@ -35,52 +35,32 @@ class Aterra(models.Model):
     is_published = fields.Boolean(string="Published",default=False)
     is_found = fields.Boolean(string="Found",default=False)
 
-
-    @api.model
-    def getAllCards(self):
-        all_records = self.search([])
-        return all_records
-
-
-    @api.model
-    def getCardNumber(self):
-        cards = self.getAllCards()
-        num = 0
-        for card in card:
-            if card['card_number_id'] > num:
-                num = card['card_number_id']
-
-        if num == 0:
-            return 1
-        else:
-            return num +1
-
     api_id = fields.Char(compute="def_api_id", store =True)
     image_Attachment_name = fields.Char(compute="def_att_name", store =True) 
     elements = fields.Char(compute='_get_list_of_elememts', store=True, string = 'Elements')
     image_url = fields.Char(string='Image URL', compute='_compute_image_url', store=True, compute_sudo=True, readonly=True)
 
-    card_number_id = fields.Integer(string = 'Card Number ID',compute="getCardNumber", default = 0)
+    card_number_id = fields.Integer(string = 'Card Number ID')
 
 
     @api.model
     def getAllCards(self):
-        all_records = self.search([])
+        all_records = self.env['aterra.aterra'].sudo().search([])
         return all_records
 
 
     @api.model
     def getCardNumber(self):
-        cards = self.getAllCards()
-        num = 0
-        for card in cards:
-            if card['card_number_id'] > num:
-                num = card['card_number_id']
+        for record in self:
+            cards = self.getAllCards()
+            num = 0
+            if cards:
+                for card in cards:
 
-        if num == 0:
-            self.card_number_id = 1
-        else:
-            self.card_number_id = num +1
+                    if card.card_number_id > num:
+                        num = card.card_number_id
+
+            record.card_number_id = num + 1
 
 
     
@@ -103,7 +83,7 @@ class Aterra(models.Model):
             # Update the image URL
             base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
             record.image_url = '{}/web/content/{}/{}'.format(base_url, attachment.id, attachment.name)
-
+        record.getCardNumber()
         return record
 
     #     
@@ -146,7 +126,7 @@ class Aterra(models.Model):
     def def_att_name(self):
         for record in self:
             if (record.name):
-                record.image_Attachment_name = '{}-{}-{}'.format(record.series,record.card_number_id,record.name)
+                record.image_Attachment_name = '{}-{}-{}'.format(record.series.name,record.card_number_id,record.name)
             else:
                 record.image_Attachment_name =  'Image Name'
 

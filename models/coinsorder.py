@@ -31,4 +31,4 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    coins_ok = fields.Boolean(string='Coins OK')
+    coins_ok = fields.Boolean(string='Coins?')
