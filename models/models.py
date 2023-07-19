@@ -170,10 +170,7 @@ class Aterra(models.Model):
         record.elements = element_list_string
 
 
-class AterraCardSeries(models.Model):
-    _name = 'aterra.cardseries'
-    _description = 'aterra.cardseries'
-    name = fields.Char()                    
+                    
 
 
 
