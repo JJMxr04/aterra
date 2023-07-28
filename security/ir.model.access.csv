@@ -4,10 +4,5 @@ access_aterra_cardrarity,aterra.cardrarity,model_aterra_cardrarity,base.group_us
 access_aterra_cardtype,aterra.cardtype,model_aterra_cardtype,base.group_user,1,1,1,1
 access_aterra_cardelement,aterra.cardelement,model_aterra_cardelement,base.group_user,1,1,1,1
 access_aterra_cardcontract,aterra.cardcontract,model_aterra_cardcontract,base.group_user,1,1,1,1
-<<<<<<< HEAD
 access_aterra_playercards,aterra.playercards,model_aterra_playercards,base.group_user,1,1,1,1
 access_aterra_cardseries,aterra.cardseries,model_aterra_cardseries,base.group_user,1,1,1,1
-
-=======
-access_aterra_playercards,aterra.playercards,model_aterra_playercards,base.group_user,1,1,1,1
->>>>>>> parent of 949c2c4 ( added series model)
