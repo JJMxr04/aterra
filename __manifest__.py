@@ -14,7 +14,7 @@
     'category': 'App',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web','website','product','sale','website_sale','contacts'],
+    'depends': ['base', 'web','website','product','sale','website_sale','contacts','payment_paypal'],
 
     # always loaded
     'data': [
